@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true}));
 // GET request for Facebook verification
 app.get('/webhook', (req, res) => {
 
-   let VERIFY_TOKEN = "<YOUR_VERIFY_TOKEN>";
+   let VERIFY_TOKEN = "EAAeZCtgNhK2QBAH8v6cP5k4P03orndBndcvkR9JniP8x6nuM4F6gjiZAQspS1M6x8dlY1wznPV9Dtr5klIZA7bDekFgR8eyuD6BKyiiDYHR9r4fDL6Dt9JxBWLrfumDUHXKGKiZC9562Y3awvQAXldfRJINRgv7ZAN6CYeJkpmAZDZD";
 
    // Parse webhook query parameters
    let mode = req.query['hub.mode'];
