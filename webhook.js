@@ -12,44 +12,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
 
-function handleMessages(s_psid, message) {
-
-  let res;
-
-  if (message.text) {
-    res = {
-      "text": message
-    }
-  }
-
-  // Forward the new response to reply function
-  replyMessage(s_psid, res);
-}
-
-
-function replyMessage(s_psid, res) {
-
-  let req = {
-    "recipient": { "id": s_psid },
-    "message": res
-  }
-
-  // Send POST request to Facebook Send API
-  request({
-    "uri": "https://graph.facebook.com/v2.6/me/messages",
-    "qs": { "access_token": "EAAHZAkfw4BEABAGThJcLFpM3S3t11tRGmA6DOjD3K4ACmzA4kKpX35FvSmlQMQBEFwhDqDFB35BRZAE10v6bcyZAK7qUBXp8sFYSLZCqZCFPgTG6e2hzzu2FZCehsCr3ZAME9pZCQcg4SNTA4D4nYxL8lqawzsqj3MZBtfFvrpqzxQAZDZD" },
-    "method": "POST",
-    "json": req
-  }, function (error, response)  {
-    if (error) {
-      console.log('Error: ' + error);
-    } else {
-      console.log('Success!' + response);
-    }
-  });
-}
-
-
 // GET request for Facebook verification
 app.get('/webhook', (req, res) => {
 
@@ -88,6 +50,7 @@ app.post('/webhook', (req, res) => {
 
       // Retrieve sender psid
       let s_psid = entry.messaging[0].sender.id;
+      console.log("Sender is "+ s_psid);
 
       // Determine if message or postback event
       if (entry.messaging[0].message) {
@@ -97,10 +60,12 @@ app.post('/webhook', (req, res) => {
       } else if (entry.messaging[0].postback) {
         
         // Helper function to pase postback
-        handlePostback(s_psid, entry.messaging[0].postback);
+        console.log('example');
       }
 
    });
+
+    console.log("HEHEHEH");
 
     res.status(200).send('EVENT_RECEIVED');
   
@@ -111,6 +76,48 @@ app.post('/webhook', (req, res) => {
   }
 
 });
+
+
+
+function handleMessages(s_psid, message) {
+
+  let res;
+
+  if (message.text) {
+    res = {
+      "text": message
+    }
+  }
+
+  // Forward the new response to reply function
+  replyMessage(s_psid, res);
+}
+
+
+function replyMessage(s_psid, res) {
+
+  let req = {
+    "recipient": { "id": s_psid },
+    "message": res
+  }
+
+  // Send POST request to Facebook Send API
+  request({
+    "uri": "https://graph.facebook.com/v2.6/me/messages",
+    "qs": { "access_token": "EAAHZAkfw4BEABAGThJcLFpM3S3t11tRGmA6DOjD3K4ACmzA4kKpX35FvSmlQMQBEFwhDqDFB35BRZAE10v6bcyZAK7qUBXp8sFYSLZCqZCFPgTG6e2hzzu2FZCehsCr3ZAME9pZCQcg4SNTA4D4nYxL8lqawzsqj3MZBtfFvrpqzxQAZDZD" },
+    "method": "POST",
+    "json": req
+  }, function (error, response)  {
+    if (error) {
+      console.log('Error: ' + error);
+    } else {
+      console.log('Success!');
+    }
+  });
+}
+
+
+
 
 const server = app.listen(process.env.PORT || 3000, () => console.log('Listening on port ' + server.address().port));
 
