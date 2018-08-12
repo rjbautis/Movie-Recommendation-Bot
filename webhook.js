@@ -37,7 +37,7 @@ function replyMessage(s_psid, res) {
   // Send POST request to Facebook Send API
   request({
     "uri": "https://graph.facebook.com/v2.6/me/messages",
-    "qs": { "access_token": "EAAeZCtgNhK2QBAH8v6cP5k4P03orndBndcvkR9JniP8x6nuM4F6gjiZAQspS1M6x8dlY1wznPV9Dtr5klIZA7bDekFgR8eyuD6BKyiiDYHR9r4fDL6Dt9JxBWLrfumDUHXKGKiZC9562Y3awvQAXldfRJINRgv7ZAN6CYeJkpmAZDZD" },
+    "qs": { "access_token": "" },
     "method": "POST",
     "json": req
   }, function (error, response)  {
@@ -53,7 +53,7 @@ function replyMessage(s_psid, res) {
 // GET request for Facebook verification
 app.get('/webhook', (req, res) => {
 
-  let VERIFY_TOKEN = "EAAeZCtgNhK2QBAH8v6cP5k4P03orndBndcvkR9JniP8x6nuM4F6gjiZAQspS1M6x8dlY1wznPV9Dtr5klIZA7bDekFgR8eyuD6BKyiiDYHR9r4fDL6Dt9JxBWLrfumDUHXKGKiZC9562Y3awvQAXldfRJINRgv7ZAN6CYeJkpmAZDZD";
+  let VERIFY_TOKEN = "randToken";
 
   // Parse webhook query parameters
   let mode = req.query['hub.mode'];
