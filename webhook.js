@@ -66,8 +66,6 @@ app.post('/webhook', (req, res) => {
 
    });
 
-    console.log("HEHEHEH");
-
     res.status(200).send('EVENT_RECEIVED');
   
   } else {
@@ -98,27 +96,25 @@ function handleMessages(s_psid, message) {
 function replyMessage(s_psid, res) {
 
   let req = {
-    "recipient": { "id": s_psid },
+    "recipient": { "id": 1754862594582548 },
     "message": res
   }
 
   // Send POST request to Facebook Send API
   request({
     uri: "https://graph.facebook.com/v2.6/me/messages",
-    qs: { "access_token": "EAAHZAkfw4BEABAGThJcLFpM3S3t11tRGmA6DOjD3K4ACmzA4kKpX35FvSmlQMQBEFwhDqDFB35BRZAE10v6bcyZAK7qUBXp8sFYSLZCqZCFPgTG6e2hzzu2FZCehsCr3ZAME9pZCQcg4SNTA4D4nYxL8lqawzsqj3MZBtfFvrpqzxQAZDZD" },
+    qs: { "access_token": "EAAHmdAErZCW0BAN58dDoEC9xZCL8RK4N3qiZBpxPSaCtWSGk8rbWS2NksCNpif35JyO5xUTufNgvYrK9r5oLG12XHrTThsZCVCHg39Jr5N1ZA2a5VG4CKkpRfLNVZAOj1qmrYiBD5YheeokdnemH3BBMElQ3ue03vnhmaMyEXi3QZDZD" },
     method: "POST",
     json: req
   }, function (error, response)  {
     if (!error && response.statusCode === 200) {
       console.log('Success!');
     } else {
-      console.log('Error.');
-      console.log(error);
+      console.log('Error!');
+      console.log(response);
     }
   });
 }
-
-
 
 
 const server = app.listen(process.env.PORT || 3000, () => console.log('Listening on port ' + server.address().port));
