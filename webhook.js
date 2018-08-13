@@ -2,14 +2,15 @@
 
 const 
   express = require('express'),
+  bodyParser = require('body-parser'),
   request = require('request'),
   app = express();
 
 // Parse application/json
-app.use(express.json());
+app.use(bodyParser.json());
 
 // Parse application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true}));
+app.use(bodyParser.urlencoded({ extended: true}));
 
 
 // GET request for Facebook verification
