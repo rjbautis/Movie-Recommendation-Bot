@@ -1,8 +1,9 @@
 'use strict';
 
 const 
-  express = require('express'),
   bodyParser = require('body-parser'),
+  config = require('config'),
+  express = require('express'),
   request = require('request'),
   app = express();
 
@@ -16,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true}));
 // GET request for Facebook verification
 app.get('/webhook', (req, res) => {
 
-  let VERIFY_TOKEN = "randToken";
+  let VERIFY_TOKEN = config.get('VERIFY_TOKEN');
 
   // Parse webhook query parameters
   let mode = req.query['hub.mode'];
@@ -84,7 +85,7 @@ function sendMessage(entry) {
   // Send POST request to Facebook Send API
   request({
     uri: "https://graph.facebook.com/v2.6/me/messages",
-    qs: { access_token: "EAAHmdAErZCW0BAL13iTIsPYejcDdlVliFBWzX5ya6QccZCpArAZAWP9zlHwmw5GgTyO1fcqwX28fxjzNKsZCI1ZCTvIvRErp5C9iVcUT1T20qHAJf9gvKe3QwZBpKXfiFCVwwJgM8knqGtL9XZBpal4IZAs25XxjzPZAPygEWdf8VeAZDZD" },
+    qs: { access_token: config.get('pageAccessToken') },
     method: "POST",
     json: {
       recipient: { id: sender},
