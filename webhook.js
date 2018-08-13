@@ -57,7 +57,7 @@ app.post('/webhook', (req, res) => {
       if (entry.messaging[0].message) {
         
         // Helper function to parse message
-        sendMessage(entry);
+        sendMessage(entry.messaging[0]);
       } else if (entry.messaging[0].postback) {
         
         // Helper function to pase postback
