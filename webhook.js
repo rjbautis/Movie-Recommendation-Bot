@@ -57,7 +57,7 @@ app.post('/webhook', (req, res) => {
       if (entry.messaging[0].message) {
         
         // Helper function to parse message
-        handleMessages(s_psid, entry.messaging[0].message);
+        sendMessage(entry);
       } else if (entry.messaging[0].postback) {
         
         // Helper function to pase postback
@@ -78,34 +78,21 @@ app.post('/webhook', (req, res) => {
 
 
 
-function handleMessages(s_psid, message) {
 
-  let res;
+function sendMessage(entry) {
 
-  if (message.text) {
-    res = {
-      "text": message
-    }
-  }
-
-  // Forward the new response to reply function
-  replyMessage(s_psid, res);
-}
-
-
-function replyMessage(s_psid, res) {
-
-  let req = {
-    "recipient": { "id": s_psid },
-    "message": res
-  }
+  let sender = entry.sender.id;
+  let text = entry.message.text;
 
   // Send POST request to Facebook Send API
   request({
     uri: "https://graph.facebook.com/v2.6/me/messages",
-    qs: { "access_token": "EAAHmdAErZCW0BAL13iTIsPYejcDdlVliFBWzX5ya6QccZCpArAZAWP9zlHwmw5GgTyO1fcqwX28fxjzNKsZCI1ZCTvIvRErp5C9iVcUT1T20qHAJf9gvKe3QwZBpKXfiFCVwwJgM8knqGtL9XZBpal4IZAs25XxjzPZAPygEWdf8VeAZDZD" },
+    qs: { access_token: "EAAHmdAErZCW0BAL13iTIsPYejcDdlVliFBWzX5ya6QccZCpArAZAWP9zlHwmw5GgTyO1fcqwX28fxjzNKsZCI1ZCTvIvRErp5C9iVcUT1T20qHAJf9gvKe3QwZBpKXfiFCVwwJgM8knqGtL9XZBpal4IZAs25XxjzPZAPygEWdf8VeAZDZD" },
     method: "POST",
-    json: req
+    json: {
+      recipient: { id: sender},
+      message: {text: text}
+    }
   }, function (error, response)  {
     if (!error && response.statusCode === 200) {
       console.log('Success!');
