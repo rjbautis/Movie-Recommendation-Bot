@@ -93,11 +93,11 @@ function messageHander(entry) {
     message: {text, text}
   }
 
-  sendResponse(json)
+  sendResponse(body)
 }
 
 
-function sendResponse(json) {
+function sendResponse(body) {
 
   // Send POST request to Facebook Send API
   request({
