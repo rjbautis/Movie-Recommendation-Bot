@@ -9,15 +9,18 @@ const
 
 // Parse application/json
 app.use(bodyParser.json());
-
-// Parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true}));
 
+// Environment variables
+const VERIFY_TOKEN = process.env.VERIFY_TOKEN ? process.env.VERIFY_TOKEN : config.get('verificationToken');
+const ACCESS_TOKEN = process.env.ACCESS_TOKEN ? process.env.ACCESS_TOKEN : config.get('pageAccessToken');
 
-// GET request for Facebook verification
+
+/*
+ *  GET request for Facebook verification
+ *
+ */
 app.get('/webhook', (req, res) => {
-
-  let VERIFY_TOKEN = config.get('VERIFY_TOKEN');
 
   // Parse webhook query parameters
   let mode = req.query['hub.mode'];
@@ -39,7 +42,10 @@ app.get('/webhook', (req, res) => {
 
 });
 
-// POST requests for messages
+/*
+ * POST requests for messages
+ *
+ */ 
 app.post('/webhook', (req, res) => {
 
   if (req.body.object === 'page') {
@@ -85,7 +91,7 @@ function sendMessage(entry) {
   // Send POST request to Facebook Send API
   request({
     uri: "https://graph.facebook.com/v2.6/me/messages",
-    qs: { access_token: config.get('pageAccessToken') },
+    qs: { access_token: ACCESS_TOKEN },
     method: "POST",
     json: {
       recipient: { id: sender},
