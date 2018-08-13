@@ -96,14 +96,14 @@ function handleMessages(s_psid, message) {
 function replyMessage(s_psid, res) {
 
   let req = {
-    "recipient": { "id": 1754862594582548 },
+    "recipient": { "id": s_psid },
     "message": res
   }
 
   // Send POST request to Facebook Send API
   request({
     uri: "https://graph.facebook.com/v2.6/me/messages",
-    qs: { "access_token": "EAAHmdAErZCW0BAN58dDoEC9xZCL8RK4N3qiZBpxPSaCtWSGk8rbWS2NksCNpif35JyO5xUTufNgvYrK9r5oLG12XHrTThsZCVCHg39Jr5N1ZA2a5VG4CKkpRfLNVZAOj1qmrYiBD5YheeokdnemH3BBMElQ3ue03vnhmaMyEXi3QZDZD" },
+    qs: { "access_token": "EAAHmdAErZCW0BAL13iTIsPYejcDdlVliFBWzX5ya6QccZCpArAZAWP9zlHwmw5GgTyO1fcqwX28fxjzNKsZCI1ZCTvIvRErp5C9iVcUT1T20qHAJf9gvKe3QwZBpKXfiFCVwwJgM8knqGtL9XZBpal4IZAs25XxjzPZAPygEWdf8VeAZDZD" },
     method: "POST",
     json: req
   }, function (error, response)  {
