@@ -104,15 +104,16 @@ function replyMessage(s_psid, res) {
 
   // Send POST request to Facebook Send API
   request({
-    "uri": "https://graph.facebook.com/v2.6/me/messages",
-    "qs": { "access_token": "EAAHZAkfw4BEABAGThJcLFpM3S3t11tRGmA6DOjD3K4ACmzA4kKpX35FvSmlQMQBEFwhDqDFB35BRZAE10v6bcyZAK7qUBXp8sFYSLZCqZCFPgTG6e2hzzu2FZCehsCr3ZAME9pZCQcg4SNTA4D4nYxL8lqawzsqj3MZBtfFvrpqzxQAZDZD" },
-    "method": "POST",
-    "json": req
+    uri: "https://graph.facebook.com/v2.6/me/messages",
+    qs: { "access_token": "EAAHZAkfw4BEABAGThJcLFpM3S3t11tRGmA6DOjD3K4ACmzA4kKpX35FvSmlQMQBEFwhDqDFB35BRZAE10v6bcyZAK7qUBXp8sFYSLZCqZCFPgTG6e2hzzu2FZCehsCr3ZAME9pZCQcg4SNTA4D4nYxL8lqawzsqj3MZBtfFvrpqzxQAZDZD" },
+    method: "POST",
+    json: req
   }, function (error, response)  {
-    if (error) {
-      console.log('Error: ' + error);
-    } else {
+    if (!error && response.statusCode === 200) {
       console.log('Success!');
+    } else {
+      console.log('Error.');
+      console.log(error);
     }
   });
 }
