@@ -60,14 +60,13 @@ app.post('/webhook', (req, res) => {
         sendMessage(entry.messaging[0]);
       } else if (entry.messaging[0].postback) {
         
-        // Helper function to pase postback
-        console.log('example');
+        // Helper function to parse postback
+        console.log('need to write');
       }
 
    });
 
     res.status(200).send('EVENT_RECEIVED');
-  
   } else {
 
     // Response with 404 if req.body.object !=== 'page' --> not from a page subscription
@@ -75,8 +74,6 @@ app.post('/webhook', (req, res) => {
   }
 
 });
-
-
 
 
 function sendMessage(entry) {
@@ -105,4 +102,3 @@ function sendMessage(entry) {
 
 
 const server = app.listen(process.env.PORT || 3000, () => console.log('Listening on port ' + server.address().port));
-
