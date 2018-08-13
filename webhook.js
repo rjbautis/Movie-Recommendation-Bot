@@ -64,7 +64,7 @@ app.post('/webhook', (req, res) => {
       if (entry.messaging[0].message) {
         
         // Helper function to parse message
-        sendMessage(entry.messaging[0]);
+        messageHander(entry.messaging[0]);
       } else if (entry.messaging[0].postback) {
         
         // Helper function to parse postback
@@ -83,20 +83,28 @@ app.post('/webhook', (req, res) => {
 });
 
 
-function sendMessage(entry) {
+function messageHander(entry) {
 
   let sender = entry.sender.id;
   let text = entry.message.text;
+
+  let body = {
+    recipient: { id: sender},
+    message: {text, text}
+  }
+
+  sendResponse(json)
+}
+
+
+function sendResponse(json) {
 
   // Send POST request to Facebook Send API
   request({
     uri: "https://graph.facebook.com/v2.6/me/messages",
     qs: { access_token: ACCESS_TOKEN },
     method: "POST",
-    json: {
-      recipient: { id: sender},
-      message: {text: text}
-    }
+    json: body
   }, function (error, response)  {
     if (!error && response.statusCode === 200) {
       console.log('Success!');
