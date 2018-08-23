@@ -150,7 +150,7 @@ app.post('/movies', (req, res) => {
               console.log('Success! Movie recommendations retreived.');
               
               // Grab recommendations
-              let recList = JSON.parse(body).results.map(movie => (title: movie.title, year: movie.release_date.split('-')[0]));
+              let recList = JSON.parse(body).results.map(movie => ({title: movie.title, year: movie.release_date.split('-')[0]}));
 
               // let string = rec.slice(0, rec.length-1).join(', ') + ' and ' + rec[rec.length-1];
 
