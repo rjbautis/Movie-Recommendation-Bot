@@ -150,12 +150,15 @@ app.post('/movies', (req, res) => {
               console.log('Success! Movie recommendations retreived.');
               
               // Grab recommendations
-              let recList = JSON.parse(body).results.map(movie => movie.title);
+              let recList = JSON.parse(body).results.map(movie => ({title: movie.title, year: movie.release_date.split('-')[0]}));
 
               // let string = rec.slice(0, rec.length-1).join(', ') + ' and ' + rec[rec.length-1];
 
-              let rec = recList[Math.floor(Math.random() * recList.length)];
-              let msg = 'The Movie Database recommends you watch ' + rec + ' next!';
+              let idx = Math.floor(Math.random() * recList.length);
+              
+              let rec = recList[idx].title;
+              let year = recList[idx].year;
+              let msg = 'The Movie Database recommends you watch ' + rec +  ' (' + year + ') next!';
 
               return res.json({
                 fulfillmentText: msg
